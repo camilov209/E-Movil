@@ -1,0 +1,108 @@
+<!--
+  Generated template for the SectionPollPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Sección N°{{orden}}.</ion-title>
+    </ion-navbar>
+    <ion-toolbar text-wrap>
+        <p align="center"><b>{{ name | uppercase }}</b></p>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-card *ngFor="let dsq of dataSectionQuestion">
+        <ion-card-header text-wrap>
+            <b>{{dsq.pregunta}}</b>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+
+                <!-- Text -->
+                <ion-item *ngIf="dsq.visualizar === 1">
+                    <ion-label floating>Respuesta</ion-label>
+                    <ion-input type="text"></ion-input>
+                </ion-item>
+
+                <!-- Checkbox -->
+
+                <ion-list *ngIf="dsq.visualizar === 2">
+                    <ion-item *ngFor="let op of dsq.options">
+                        <ion-label>{{op.etiqueta}}</ion-label>
+                        <ion-checkbox></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+
+                <!-- Radio -->
+                <ion-list radio-group *ngIf="dsq.visualizar === 3">
+                    <ion-list-header>
+                        Respuesta
+                    </ion-list-header>
+
+                    <ion-item>
+                        <ion-label>Go</ion-label>
+                        <ion-radio checked="true" value="go"></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Rust</ion-label>
+                        <ion-radio value="rust"></ion-radio>
+                    </ion-item>
+                </ion-list>
+
+                <!-- Select List -->
+                <ion-list *ngIf="dsq.visualizar === 4">
+
+                    <ion-item *ngIf="dsq.idtipopregunta === 1">
+                        <ion-label>Presiona para obtener respuestas.</ion-label>
+                        <ion-select [(ngModel)]="gaming">
+                            <ion-option value="nes">Si</ion-option>
+                            <ion-option value="n64">No</ion-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-item *ngIf="dsq.idtipopregunta !== 1">
+                        <ion-label>Gaming</ion-label>
+                        <ion-select [(ngModel)]="gaming">
+                            <ion-option value="nes">NES</ion-option>
+                            <ion-option value="n64">Nintendo64</ion-option>
+                            <ion-option value="ps">PlayStation</ion-option>
+                            <ion-option value="genesis">Sega Genesis</ion-option>
+                            <ion-option value="saturn">Sega Saturn</ion-option>
+                            <ion-option value="snes">SNES</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+
+                <!-- Image -->
+
+                <!-- Text Area -->
+                <ion-item *ngIf="dsq.visualizar === 6">
+                    <ion-textarea placeholder="Enter a description"></ion-textarea>
+                </ion-item>
+
+                <!-- File -->
+
+                <!-- Date -->
+                <ion-item *ngIf="dsq.visualizar === 8">
+                    <ion-datetime displayFormat="YYYY-MM-DD"
+                                  monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                                  pickerFormat="DD MMMM YYYY"></ion-datetime>
+                </ion-item>
+
+                <!-- Numeric -->
+                <ion-item *ngIf="dsq.visualizar === 9">
+                    <ion-label floating>Respuesta</ion-label>
+                    <ion-input type="number"></ion-input>
+                </ion-item>
+
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

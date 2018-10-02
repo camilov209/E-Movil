@@ -14,3 +14,53 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+
+.sideMenuAvatar{
+  border-radius: 100%;
+}
+
+.sideMenuWelcome {
+  position: absolute;
+  padding-top: 10px;
+  color: #ffffff;
+  width: 250px;
+  font-size: 14px;
+}
+
+.sideMenuProfile {
+  position: absolute;
+  padding-top: 25px;
+  color: #ffffff;
+  font-size: 12px;
+  width: 250px;
+}
+
+.sideMenuList {
+  color: #424242;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+ion-icon {
+  &[class*="custom-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+  &[class*="custom-business"] {
+    mask-image: url(../assets/imgs/business.png);
+  }
+  &[class*="custom-identification"] {
+    mask-image: url(../assets/imgs/identification.png);
+  }
+}
+
+$item-ios-avatar-border-radius:          50% !default;
+$item-md-avatar-border-radius:           50% !default;
+$item-wp-avatar-border-radius:           50% !default;

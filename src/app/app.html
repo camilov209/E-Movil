@@ -1,1 +1,46 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+  <ion-header>
+    <div>
+      <img src="assets/imgs/material-graphite.jpg" height="145" width="100%">
+      <div style="position: absolute; top: 0; padding-top: 20px; padding-left: 15px;">
+        <img src="assets/imgs/instructor.jpg" width="60" height="60" class="sideMenuAvatar">
+        <span class="sideMenuWelcome"><b>E-Movil da la Bienvenida a: </b></span>
+        <span class="sideMenuProfile">{{this._settings.settings.firtname_user}} {{this._settings.settings.lastname_user}}</span>
+      </div>
+
+    </div>
+  </ion-header>
+
+  <ion-content>
+    <ion-list no-lines>
+
+      <ion-list-header>
+        <b>Opciones y sincronización</b>
+      </ion-list-header>
+
+      <button menuClose ion-item>
+        <ion-icon name="sync" style="color: #616161" item-start></ion-icon>
+        <span class="sideMenuList">Sincronizar Encuestas</span>
+      </button>
+      <button menuClose ion-item (click)="logout()">
+        <ion-icon name="exit" style="color: #616161" item-start></ion-icon>
+        <span class="sideMenuList">Cerrar Sesión</span>
+      </button>
+
+      <ion-list-header>
+        <b>Configuración y privacidad</b>
+      </ion-list-header>
+
+      <button menuClose ion-item>
+        <ion-icon name="alert" style="color: #616161" item-start></ion-icon>
+        <span class="sideMenuList">Quienes Somos</span>
+      </button>
+
+    </ion-list>
+
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

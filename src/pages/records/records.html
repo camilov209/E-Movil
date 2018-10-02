@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToInsertAppliedSource()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Encuestas</ion-title>
+  </ion-navbar>
+  <ion-toolbar text-wrap>
+    <p align="center"><b>{{ subHeader | uppercase }}</b></p>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <p align="center" style="color: #488aff; padding-top: 15px" *ngIf="status === false"><b>Aún, no hay {{ subHeader | uppercase}} registrados.</b></p>
+
+    <ion-card *ngFor="let das of dataAppliedSource" (click)="goToPolls()">
+        <ion-card-header>
+            <h2><b>Funcionario y fecha de digitalización</b></h2>
+        </ion-card-header>
+        <ion-card-content>
+            <span style="font-size: 13px">{{das.nombres | uppercase}} {{das.apellidos | uppercase}}<br></span>
+            <span style="font-size: 13px">{{das.digitalizacion}}</span>
+        </ion-card-content>
+
+        <ion-card-header>
+            <h2><b>Código geográfico</b></h2>
+        </ion-card-header>
+        <ion-card-content>
+            <span style="font-size: 13px">{{das.id_pais | uppercase }} - {{ das.nombre | uppercase }} - {{ das.nombremunicipio | uppercase}}</span>
+        </ion-card-content>
+
+        <ion-card-header>
+            <h2><b>Estado de la encuesta</b></h2>
+        </ion-card-header>
+        <ion-card-content align="center">
+            <span style="font-size: 13px; color: #f53d3d"><b>Sin terminar: </b></span> <ion-icon style="font-size: 20px" color="danger" name="information-circle"></ion-icon>
+        </ion-card-content>
+
+        <ion-row>
+            <ion-col col-auto>
+                <button ion-button icon-start clear small>
+                    <ion-icon name="create"></ion-icon>
+                    <div>Editar</div>
+                </button>
+            </ion-col>
+            <ion-col col-auto>
+                <button ion-button icon-start clear small>
+                    <ion-icon name="information-circle"></ion-icon>
+                    <div>Ver detalles</div>
+                </button>
+            </ion-col>
+            <ion-col col-auto>
+                <button ion-button icon-start clear small>
+                    <ion-icon name="copy"></ion-icon>
+                    <div>Duplicar</div>
+                </button>
+            </ion-col>
+
+        </ion-row>
+    </ion-card>
+
+</ion-content>

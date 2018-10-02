@@ -1,17 +1,23 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+<ion-header no-border no-padding>
+  <ion-navbar color="primary">
+    <ion-title>E-Movil</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="showToolbarButtons === false" (click)="goToInsertFamily()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+      <!--<button ion-button icon-only *ngIf="showToolbarButtons">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>-->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <super-tabs tabsPlacement="top" toolbarBackground="primary" [selectedTabIndex]="selectedTabIndexDefault" toolbarColor="light" indicatorColor="light" (tabSelect)="eventTab(superTabs.getActiveTab().tabId)">
+    <super-tab [root]="page1" title="Instrumentos" icon="clipboard" id="pollTab"></super-tab>
+    <super-tab [root]="page2" title="Familias" icon="people" id="familyTab"></super-tab>
+  </super-tabs>
 </ion-content>

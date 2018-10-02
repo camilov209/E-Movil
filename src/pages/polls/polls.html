@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Secciones</ion-title>
+  </ion-navbar>
+  <ion-toolbar text-wrap>
+    <p align="center"><b>{{ subHeader | uppercase }}</b></p>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list text-wrap *ngIf="dataSourceSectionRecord.length !== 0">
+    <button ion-item *ngFor="let dsr of dataSourceSectionRecord" (click)="goToSectionPoll(dsr.idseccion, dsr.nombre, dsr.orden)">
+      <text-avatar [color]="getColorSectionRecord()" [text]="dsr.orden" item-left></text-avatar>
+      <p text-uppercase><b>{{dsr.nombre}}</b></p>
+    </button>
+  </ion-list>
+
+  <div align="center" *ngIf="dataSourceSectionRecord.length === 0"><p style="color: #e13838"><b>No se encontrarón encuestas para el instrumento.</b></p></div>
+</ion-content>

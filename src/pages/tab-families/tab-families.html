@@ -1,0 +1,40 @@
+<ion-content>
+
+    <!--<ion-fab>
+        <button ion-fab>Button</button>
+    </ion-fab>-->
+
+    <ion-searchbar [(ngModel)]="searchTerm"
+                   [formControl]="searchControl"
+                   (ionInput)="onSearchInput()"
+                   placeholder="Buscar..."
+    ></ion-searchbar>
+    <div *ngIf="searching" align="center" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div style="height: 100%">
+        <div style="height: 100%">
+            <ion-list text-wrap [virtualScroll]="dataFamilies" approxItemHeight="49px" approxItemWidth="100%" bufferRatio="9">
+                <button ion-item *virtualItem="let f" (click)="goToUpdateUser(f.idflia, f.identificacion, f.codigoflia)" style="width: 100%">
+                    <text-avatar [color]="f.color" [text]="getLetterFirst(f.jefehogar)" item-left></text-avatar>
+                    <p><b> {{f.jefehogar}} - {{f.identificacion}}</b></p>
+                    <h3> {{ f.nombre_pais }} - {{f.nombre}} - {{f.nombremunicipio}}</h3>
+                </button>
+            </ion-list>
+        </div>
+    </div>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,138 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Cargando Modulos ...</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <div class="moduleFirst">
+    <b>Creando modulos </b>
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="count !== 14">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="count === 14"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusButtonLogin === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivCountry === true">
+    - Descargando información de paises.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusCountry === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusCountry === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusCountry === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivDepartament === true">
+    - Descargando información de departamentos.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusDepartament === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusDepartament === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusDepartament === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivMunicipality === true">
+    - Descargando información de municipios.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusMunicipality === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusMunicipality === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusMunicipality === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivZoneMunicipality === true">
+    - Descargando información de corregimientos y veredas.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusZoneMunicipality === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusZoneMunicipality === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusZoneMunicipality === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivQuestion === true">
+    - Descargando preguntas.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusQuestion === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusQuestion === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusQuestion === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivOption === true">
+    - Descargando opciones de respuesta.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusOption === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusOption === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusOption === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivSourceIndicator === true">
+    - Descargando instrumentos de diagnóstico.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusSourceIndicator === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusSourceIndicator === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusSourceIndicator === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivSourceSection === true">
+    - Descargando secciones.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusSourceSection === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusSourceSection === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusSourceSection === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivSectionQuestion === true">
+    - Descargando secciones de pregunta.
+    <img src="assets/imgs/gif/loading.gif" height="25" *ngIf="statusSectionQuestion === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusSectionQuestion === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusSectionQuestion === false"></ion-icon>
+  </div>
+
+  <!--<div class="moduleFirst">
+    <b>Obteniendo información de opción pregunta </b>
+    <img src="assets/imgs/gif/loading.gif" height="25">
+    <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+    <ion-icon name="close-circle" color="danger"></ion-icon>
+  </div>-->
+
+  <div class="moduleOthers" *ngIf="statusViewDivPersonal === true">
+    - Obteniendo información de personal
+    <img src="assets/imgs/gif/loading.gif" height="23" *ngIf="statusPersonal === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusPersonal === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusPersonal === false"></ion-icon>
+  </div>
+
+  <div class="moduleOthers" *ngIf="statusViewDivFamily === true">
+    - Obteniendo familias identificadas.
+    <img src="assets/imgs/gif/loading.gif" height="23" *ngIf="statusFamily === null">
+    <ion-icon name="checkmark-circle" class="iconSize" color="secondary" *ngIf="statusFamily === true"></ion-icon>
+    <ion-icon name="close-circle" class="iconSize" color="danger" *ngIf="statusFamily === false"></ion-icon>
+  </div>
+
+  <!--<div class="moduleFirst">
+    <b>Obteniendo información de proyectos </b>
+    <img src="assets/imgs/gif/loading.gif" height="25">
+    <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+    <ion-icon name="close-circle" color="danger"></ion-icon>
+  </div>
+
+  <div class="moduleFirst">
+    <b>Obteniendo información de tipo de beneficiarios </b>
+    <img src="assets/imgs/gif/loading.gif" height="25">
+    <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+    <ion-icon name="close-circle" color="danger"></ion-icon>
+  </div>
+
+  <div class="moduleFirst">
+    <b>Obteniendo información de géneros </b>
+    <img src="assets/imgs/gif/loading.gif" height="25">
+    <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+    <ion-icon name="close-circle" color="danger"></ion-icon>
+  </div>
+
+  <div class="moduleFirst">
+    <b>Obteniendo información de étnias </b>
+    <img src="assets/imgs/gif/loading.gif" height="25">
+    <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+    <ion-icon name="close-circle" color="danger"></ion-icon>
+  </div>-->
+
+  <br>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button block color="secondary" [disabled]="count !== 14" (click)="goToLogin()">¡INICIAR SESIÓN!</button>
+  </ion-toolbar>
+</ion-footer>

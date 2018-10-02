@@ -1,0 +1,23 @@
+<ion-content>
+
+    <ion-searchbar [(ngModel)]="searchTerm"
+                   [formControl]="searchControl"
+                   (ionInput)="onSearchInput()"
+                   placeholder="Buscar..."
+    ></ion-searchbar>
+    <div *ngIf="searching" align="center" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+
+    <div style="height: 100%">
+        <div style="height: 100%">
+            <ion-list text-wrap [virtualScroll]="dataSourceIndicator" approxItemHeight="49px" approxItemWidth="100%" bufferRatio="9">
+                <button ion-item *virtualItem="let ds" (click)="viewSourcesSection(ds.idfuente)">
+                    <text-avatar [color]="ds.color" [text]="getLetterFirst(ds.nombrefuente)" item-left></text-avatar>
+                    <p text-uppercase><b>{{ds.nombrefuente}}</b></p>
+                    <h3 style="color: #e13838">Encuestas terminadas: {{ds.count_polls}}/{{ds.count_instrument}}</h3>
+                </button>
+            </ion-list>
+        </div>
+    </div>
+</ion-content>

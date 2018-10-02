@@ -1,0 +1,180 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Caracterización de encuesta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p style="font-size: 16px; color: #e13838"><b>Los campos marcados con asterisco (*) son campos obligatorios.</b></p>
+
+
+  <form [formGroup]="myForm" (ngSubmit)="saveData()">
+    <ion-list>
+
+      <ion-list>
+        <ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-label stacked>Funcionario: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="funcionario" placeholder="Nombre del Funcionario" value="{{personal}}" disabled type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="calendar" item-start></ion-icon>
+          <ion-label stacked>Digitalización: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-datetime formControlName="digitalizacion"
+                        displayFormat="YYYY-MM-DD"
+                        monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                        pickerFormat="DD MMMM YYYY"></ion-datetime>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('digitalizacion').errors && myForm.get('digitalizacion').dirty" text-wrap>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('digitalizacion').hasError('required')">Campo requerido.</p>
+        </ion-item>
+
+      </ion-list>
+
+
+      <ion-list>
+
+        <ion-list-header>
+          <b>Código Geográfico</b>
+        </ion-list-header>
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>País: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+            <ion-select formControlName="pais" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupDepartament($event)" [selectOptions]="selectOptionsCountry">
+              <ion-option *ngFor="let c of cities" value="{{c.id_pais}}">{{c.nombre_pais}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorPais === false" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="errorPais === false">Campo requerido.</p></b>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>Departamento: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+            <ion-select formControlName="departamento" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupMunicipalities($event)" [selectOptions]="selectOptionsDepartment" [disabled]="errorPais === null || errorPais === false">
+              <ion-option *ngFor="let d of departaments" value="{{d.iddepto}}">{{d.nombre}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorPais === false" text-wrap>
+            <b><p class="errorInput" color="primary" ion-text *ngIf="errorPais === false">Por favor selecciona un pais.</p></b>
+          </ion-item>
+          <ion-item *ngIf="errorDepartamento === false" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="errorDepartamento === false">Campo requerido.</p></b>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>Municipio: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+            <ion-select formControlName="municipio" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupZonesMunicipalitiesCorregimiento($event) || changeGroupZonesMunicipalitiesBarrio($event) || changeGroupZonesMunicipalitiesVereda($event)" [selectOptions]="selectOptionsMunicipality" [disabled]="errorDepartamento === null || errorDepartamento === false">
+              <ion-option *ngFor="let m of munipalities" value="{{m.idmunicipio}}">{{m.nombremunicipio}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorDepartamento === false" text-wrap>
+            <b><p class="errorInput" color="primary" ion-text *ngIf="errorDepartamento === false">Por favor selecciona un departamento.</p></b>
+          </ion-item>
+          <ion-item *ngIf="errorMunicipio === false" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="errorMunicipio === false">Campo requerido.</p></b>
+          </ion-item>
+        </ion-list>
+
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>Corregimiento</ion-label>
+            <ion-select formControlName="corregimiento" [disabled]="zona_corregimiento === null || errorMunicipio === null || errorMunicipio === false">
+              <ion-option *ngFor="let zc of zona_corregimiento" value="{{zc.idzona}}">{{zc.nombrezona}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorMunicipio === false" text-wrap>
+            <b><p class="errorInput" color="primary" ion-text *ngIf="errorMunicipio === false">Por favor selecciona un municipio.</p></b>
+          </ion-item>
+          <ion-item *ngIf="zona_corregimiento === null" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="zona_corregimiento === null">No encontraron corregimientos registrados del municipio seleccionado.</p></b>
+          </ion-item>
+        </ion-list>
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>Vereda</ion-label>
+            <ion-select formControlName="vereda" [disabled]="zona_vereda === null || errorMunicipio === null || errorMunicipio === false">
+              <ion-option *ngFor="let zb of zona_vereda" value="{{zb.idzona}}">{{zb.nombrezona}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorMunicipio === false" text-wrap>
+            <b><p class="errorInput" color="primary" ion-text *ngIf="errorMunicipio === false">Por favor selecciona un municipio.</p></b>
+          </ion-item>
+          <ion-item *ngIf="zona_vereda === null" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="zona_vereda === null">No se encontraron veredas registradas del municipio seleccionado.</p></b>
+          </ion-item>
+        </ion-list>
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>Barrio</ion-label>
+            <ion-select formControlName="barrio" [disabled]="zona_barrio === null || errorMunicipio === null || errorMunicipio === false">
+              <ion-option *ngFor="let zv of zona_barrio" value="{{zv.idzona}}">{{zv.nombrezona}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorMunicipio === false" text-wrap>
+            <b><p class="errorInput" color="primary" ion-text *ngIf="errorMunicipio === false">Por favor selecciona un municipio.</p></b>
+          </ion-item>
+          <ion-item *ngIf="zona_barrio === null" text-wrap>
+            <b><p class="errorInput" color="danger" ion-text *ngIf="zona_barrio === null">No se encontraron barrios registrados del municipio seleccionado.</p></b>
+          </ion-item>
+        </ion-list>
+
+        <!--<ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-label stacked>Código geográfico: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="codgeo" placeholder="Nombre del Código Geográfico" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('codgeo').errors && myForm.get('codgeo').dirty" text-wrap>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('codgeo').hasError('required')">Campo requerido.</p>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('codgeo').hasError('minlength')">Ingresar mínimo 10 caracteres.</p>
+        </ion-item>-->
+
+        <ion-item>
+          <ion-icon name="locate" item-start></ion-icon>
+          <ion-label stacked>Latitud: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="latitud" placeholder="Latitud" value="{{latitud}}" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('latitud').errors && myForm.get('latitud').dirty" text-wrap>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('latitud').hasError('required')">Campo requerido.</p>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('latitud').hasError('minlength')">Ingresar mínimo 10 caracteres.</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="locate" item-start></ion-icon>
+          <ion-label stacked>Longitud: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="longitud" placeholder="Longitud" value="{{longitud}}" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('longitud').errors && myForm.get('longitud').dirty" text-wrap>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('longitud').hasError('required')">Campo requerido.</p>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('longitud').hasError('minlength')">Ingresar mínimo 10 caracteres.</p>
+        </ion-item>
+
+      </ion-list>
+
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!myForm.valid">Guardar</button>
+    </div>
+  </form>
+
+</ion-content>

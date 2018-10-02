@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Inicio de sesión</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <img class="iconLogo" src="assets/imgs/ica-slidebox-img-1.png" height="40%" width="auto">
+
+    <div id="container">
+        <ion-list inset>
+
+            <ion-item id="roundedUsername">
+                <ion-label class="attrLabel"><ion-icon name="contact"></ion-icon> Username</ion-label>
+                <ion-input type="text" [(ngModel)]="dataLogin.username"></ion-input>
+            </ion-item>
+
+            <ion-item id="roundedPassword">
+                <ion-label class="attrLabel"><ion-icon name="lock"></ion-icon> Password</ion-label>
+                <ion-input type="password" [(ngModel)]="dataLogin.password"></ion-input>
+            </ion-item>
+
+            <br>
+
+            <button ion-button icon-left color="secondary" outline block (click)="login(dataLogin)">
+                <ion-icon name="arrow-dropright-circle"></ion-icon>
+                Iniciar Sesión
+            </button>
+
+            <button ion-button icon-left color="danger" outline block>
+                <ion-icon name="alert"></ion-icon>
+                ¿Olvido su contraseña?
+            </button>
+
+        </ion-list>
+    </div>
+
+</ion-content>

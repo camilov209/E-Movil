@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PruebaHttp</name>
+<widget id="co.eteknik.emovil" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>E-Movil</name>
     <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">E-Teknik S.A.S Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -82,4 +82,10 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Determinar la posición exacta del encuestador para determinar el lugar donde se hizo la encuesta." />
+    </plugin>
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.10" />
+    <engine name="android" spec="7.0.0" />
 </widget>

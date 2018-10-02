@@ -1,0 +1,185 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Actualización de Familias</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <p style="font-size: 16px; color: #e13838"><b>Los campos marcados con asterisco (*) son campos obligatorios.</b></p>
+
+
+  <form [formGroup]="myForm" (ngSubmit)="saveData()">
+    <ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          <b>Cabeza de Familia</b>
+        </ion-list-header>
+        <ion-item>
+          <ion-icon name="person" item-start></ion-icon>
+          <ion-label stacked>Jefe de Hogar: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="jefehogar" placeholder="Nombre de Destinatario" type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('jefehogar').errors && myForm.get('jefehogar').dirty">
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('jefehogar').hasError('required')">Campo requerido.</p>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('jefehogar').hasError('minlength')">Ingresar mínimo 10 caracteres.</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="custom-identification" item-start></ion-icon>
+          <ion-label stacked>Identificación: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+          <ion-input formControlName="identificacion" type="number" placeholder="Numero de Identificación"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('identificacion').errors && myForm.get('identificacion').dirty">
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('identificacion').hasError('required')">Campo requerido.</p>
+          <p class="errorInput" color="danger" ion-text *ngIf="myForm.get('identificacion').hasError('minlength')">Ingresar mínimo 10 caracteres.</p>
+        </ion-item>
+
+      </ion-list>
+
+
+      <ion-list>
+
+        <ion-list-header>
+          <b>Localidad</b>
+        </ion-list-header>
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="globe" item-start></ion-icon>
+            <ion-label>País: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+            <ion-select formControlName="pais" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupDepartament($event)" [selectOptions]="selectOptionsCountry">
+              <ion-option *ngFor="let c of cities" value="{{c.id_pais}}">{{c.nombre_pais}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="errorPais === false">
+            <p class="errorInput" color="danger" ion-text *ngIf="errorPais === false">Campo requerido.</p>
+          </ion-item>
+        </ion-list>
+
+
+          <ion-list>
+            <ion-item>
+              <ion-icon name="globe" item-start></ion-icon>
+              <ion-label>Departamento: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+              <ion-select formControlName="departamento" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupMunicipalities($event)" [selectOptions]="selectOptionsDepartment">
+                <ion-option *ngFor="let d of departaments" value="{{d.iddepto}}">{{d.nombre}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="errorDepartamento === false">
+              <p class="errorInput" color="danger" ion-text *ngIf="errorDepartamento === false">Campo requerido.</p>
+            </ion-item>
+          </ion-list>
+
+
+          <ion-list>
+            <ion-item>
+              <ion-icon name="globe" item-start></ion-icon>
+              <ion-label>Municipio: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+              <ion-select formControlName="municipio" (ionBlur)="eventCheck($event)" (ionChange)="changeGroupZonesMunicipalitiesCorregimiento($event) || changeGroupZonesMunicipalitiesBarrio($event) || changeGroupZonesMunicipalitiesVereda($event)" [selectOptions]="selectOptionsMunicipality">
+                <ion-option *ngFor="let m of munipalities" value="{{m.idmunicipio}}">{{m.nombremunicipio}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="errorMunicipio === false">
+              <p class="errorInput" color="danger" ion-text *ngIf="errorMunicipio === false">Campo requerido.</p>
+            </ion-item>
+          </ion-list>
+
+
+          <ion-list>
+            <ion-item>
+              <ion-icon name="globe" item-start></ion-icon>
+              <ion-label>Corregimiento</ion-label>
+              <ion-select formControlName="corregimiento" [disabled]="zona_corregimiento === null">
+                <ion-option *ngFor="let zc of zona_corregimiento" value="{{zc.idzona}}">{{zc.nombrezona}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="zona_corregimiento === null">
+              <p class="errorInput" color="danger" ion-text *ngIf="zona_corregimiento === null">No encontraron corregimientos registrados del municipio seleccionado.</p>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-icon name="globe" item-start></ion-icon>
+              <ion-label>Vereda</ion-label>
+              <ion-select formControlName="vereda" [disabled]="zona_vereda === null">
+                <ion-option *ngFor="let zb of zona_vereda" value="{{zb.idzona}}">{{zb.nombrezona}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="zona_vereda === null">
+              <p class="errorInput" color="danger" ion-text *ngIf="zona_vereda === null">No se encontraron veredas registradas del municipio seleccionado.</p>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-icon name="globe" item-start></ion-icon>
+              <ion-label>Barrio</ion-label>
+              <ion-select formControlName="barrio" [disabled]="zona_barrio === null">
+                <ion-option *ngFor="let zv of zona_barrio" value="{{zv.idzona}}">{{zv.nombrezona}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item *ngIf="zona_barrio === null">
+              <p class="errorInput" color="danger" ion-text *ngIf="zona_barrio === null">No se encontraron barrios registrados del municipio seleccionado.</p>
+            </ion-item>
+          </ion-list>
+
+
+      </ion-list>
+
+      <ion-list>
+
+        <ion-list-header>
+          <b>Beneficiario</b>
+        </ion-list-header>
+
+        <ion-list>
+          <ion-item>
+            <ion-icon name="custom-business" item-start></ion-icon>
+            <ion-label>Tipo Beneficiario: <b style="color: #e13838; font-size: 12px">(*)</b></ion-label>
+            <ion-select formControlName="tipobeneficiario" [selectOptions]="selectOptionsBeneficiaryType" (ionChange)="changeBeneficiaryType($event)">
+              <ion-option *ngFor="let tb of beneficiaries_types" value="{{tb.idtipo_beneficiario}}">{{tb.nombre}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <ion-item *ngIf="tipo_beneficiario === 1">
+          <ion-icon name="person-add" item-start></ion-icon>
+          <ion-label stacked>Integrantes:</ion-label>
+          <ion-input formControlName="integrantes" type="number" placeholder="Numero de Integrantes"></ion-input>
+        </ion-item>
+
+        <ion-list *ngIf="tipo_beneficiario === 1">
+          <ion-item>
+            <ion-icon name="transgender" item-start></ion-icon>
+            <ion-label>Género</ion-label>
+            <ion-select formControlName="genero">
+              <ion-option *ngFor="let g of genders" value="{{g.id_sexo}}">{{g.sexo}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <ion-list *ngIf="tipo_beneficiario === 1">
+          <ion-item>
+            <ion-icon name="person" item-start></ion-icon>
+            <ion-label>Etnia</ion-label>
+            <ion-select formControlName="etnia">
+              <ion-option *ngFor="let e of ethnicities" value="{{e.id_etnia}}">{{e.etnia}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+      </ion-list>
+
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!myForm.valid">Guardar</button>
+    </div>
+  </form>
+
+</ion-content>
